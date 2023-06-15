@@ -1,3 +1,15 @@
+function resetScore() {
+  score.win = 0;
+  score.loss = 0;
+}
+let score = JSON.parse(localStorage.getItem("score"));
+if (!score) {
+  score = {
+    win: 0,
+    loss: 0,
+  };
+}
+
 function computerMove() {
   const randomMove = Math.random();
   let coinFlipped = "";
@@ -20,12 +32,21 @@ function playgame(playerGuess) {
     }
   } else if (playerGuess === "tail") {
     if (computerCoin === "tail") {
-      result = "You win";
+      result = "you win";
     } else {
       result = "you lose";
     }
   }
+  if (result === "you win") {
+    score.win += 1;
+  } else if (result === "you lose") {
+    score.loss += 1;
+  }
+
+  localStorage.setItem("score", JSON.stringify(score));
+
   alert(
-    `Your guess is ${playerGuess}. Coin flipped into ${computerCoin}. ${result}`
+    `Your guess is ${playerGuess}. Coin flipped into ${computerCoin}. ${result}
+    win: ${score.win} loss: ${score.loss}`
   );
 }
