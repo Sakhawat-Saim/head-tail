@@ -2,6 +2,13 @@ function resetScore() {
   score.win = 0;
   score.loss = 0;
 }
+
+function updateScoreElement() {
+  document.querySelector(
+    ".js-score"
+  ).innerHTML = `win: ${score.win} loss: ${score.loss}`;
+}
+
 let score = JSON.parse(localStorage.getItem("score"));
 if (!score) {
   score = {
@@ -9,6 +16,8 @@ if (!score) {
     loss: 0,
   };
 }
+
+updateScoreElement();
 
 function computerMove() {
   const randomMove = Math.random();
@@ -45,8 +54,9 @@ function playgame(playerGuess) {
 
   localStorage.setItem("score", JSON.stringify(score));
 
-  alert(
-    `Your guess is ${playerGuess}. Coin flipped into ${computerCoin}. ${result}
-    win: ${score.win} loss: ${score.loss}`
-  );
+  updateScoreElement();
+
+  document.querySelector(
+    ".js-moves"
+  ).innerHTML = `Your guess is ${playerGuess}. Coin flipped into ${computerCoin}. ${result}`;
 }

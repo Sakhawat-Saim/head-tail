@@ -7,6 +7,8 @@
   </head>
   <body>
     <h1>Guess the coin</h1>
+    <p class="js-moves"></p>
+    <p class="js-score"></p>
     <button
       onclick="
         playgame('head')
@@ -21,7 +23,13 @@
     >
       Tail
     </button>
-    <button onclick="resetScore()">Reset score</button>
+    <button
+      onclick="resetScore(),
+    localStorage.removeItem('score'), 
+    updateScoreElement()"
+    >
+      Reset score
+    </button>
 
     <script src="app.js"></script>
   </body>
